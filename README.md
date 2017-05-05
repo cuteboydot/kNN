@@ -13,7 +13,7 @@ cuteboydot@gmail.com
 </br>
 
 - code
-```
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
