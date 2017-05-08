@@ -13,7 +13,7 @@ unsigned int train_class[SIZE_TRAIN];
 unsigned char test_data[SIZE_TEST][SIZE_ATTR];
 double test_to_train_dist[SIZE_TEST][SIZE_TRAIN];
 
-double distance(unsigned char * point1, unsigned char * point2)
+double distance_euclid(unsigned char * point1, unsigned char * point2)
 {
 	double dist = 0.0, tmp = 0.0;
 	int a;
@@ -27,11 +27,31 @@ double distance(unsigned char * point1, unsigned char * point2)
 	return dist;
 }
 
+double similarity_cosine(unsigned char * point1, unsigned char * point2)
+{
+	double sim = 0.0, tmp1 = 0.0, tmp2 = 0.0, tmp3 = 0.0;
+	int a = 0;
+	
+	for(a=0; a<SIZE_ATTR; a++) {
+		tmp1 += point1[a] * point1[a];
+		tmp2 += point2[a] * point2[a];
+		tmp3 += point1[a] * point2[a];
+	}
+	tmp1 = sqrt(tmp1);
+	tmp2 = sqrt(tmp2);
+	
+	sim = tmp3 / (tmp1 * tmp2);
+	
+	return sim;
+}
+
 void calculate(int idx_test)
 {
 	int idx_train;
-	for(idx_train=0; idx_train<SIZE_TRAIN; idx_train++)
-		test_to_train_dist[idx_test][idx_train] = distance(test_data[idx_test], train_data[idx_train]);
+	for(idx_train=0; idx_train<SIZE_TRAIN; idx_train++) {
+		test_to_train_dist[idx_test][idx_train] = distance_euclid(test_data[idx_test], train_data[idx_train]);
+		//test_to_train_dist[idx_test][idx_train] = similarity_cosine(test_data[idx_test], train_data[idx_train]);
+	}
 }
 
 void display()
