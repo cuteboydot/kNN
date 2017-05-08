@@ -49,7 +49,10 @@ void calculate(int idx_test)
 {
 	int idx_train;
 	for(idx_train=0; idx_train<SIZE_TRAIN; idx_train++) {
+		// using euclidean distance
 		test_to_train_dist[idx_test][idx_train] = distance_euclid(test_data[idx_test], train_data[idx_train]);
+		
+		// using consine similarity
 		//test_to_train_dist[idx_test][idx_train] = similarity_cosine(test_data[idx_test], train_data[idx_train]);
 	}
 }
